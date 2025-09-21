@@ -8,6 +8,7 @@ export const externals = ['7zip']
 
 const outputDir = 'out'
 export const replacements = getReplacements()
+export const safeReplacements = require('./app-info').getSafeReplacements()
 
 const commonConfig: webpack.Configuration = {
   optimization: {
@@ -160,7 +161,7 @@ export const highlighter = merge({}, commonConfig, {
   target: 'webworker',
   plugins: [
     new webpack.DefinePlugin(
-      Object.assign({}, replacements, {
+      Object.assign({}, safeReplacements, {
         __PROCESS_KIND__: JSON.stringify('highlighter'),
       })
     ),
