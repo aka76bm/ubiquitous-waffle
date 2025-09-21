@@ -32,3 +32,11 @@ export function getReplacements() {
     'process.env.TEST_ENV': s(process.env.TEST_ENV),
   }
 }
+
+// Return a replacements object with sensitive values omitted for public bundles
+export function getSafeReplacements() {
+  const all = getReplacements()
+  // Make a shallow copy and delete sensitive keys
+  const { __OAUTH_CLIENT_ID__, __OAUTH_SECRET__, ...safe } = all
+  return safe
+}
